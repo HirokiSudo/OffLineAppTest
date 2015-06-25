@@ -1,0 +1,25 @@
+#query-builder {
+  border-right-color: gray;
+  border-right-style: solid;
+  border-right-width: 2px;
+  flex: 1;
+  padding: 20px;
+}
+
+#results {
+  padding: 20px;
+  flex: 5;
+}
+
+body {
+  display: flex;
+  font-size: 18px;
+}
+
+h1 {
+  font-weight: bold;
+}
+
+textarea {
+  margin-top: 20px;
+}

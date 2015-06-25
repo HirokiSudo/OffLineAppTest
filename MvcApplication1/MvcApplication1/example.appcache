@@ -1,0 +1,15 @@
+CACHE MANIFEST
+CACHE:
+/favicon.ico
+/lib/angular.min.js
+/lib/lovefield.min.js
+/lib/bootstrap.min.css
+/resources/chalk.png
+/resources/demo.css
+/resources/demo.js
+/service-worker.js
+NETWORK:
+/Demo/Index
+/data/column_domains.json
+/data/olympic_medalists.json
+FALLBACK:
