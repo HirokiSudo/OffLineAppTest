@@ -1,46 +1,98 @@
-// Cache API���ꕔ�������Ȃ̂Ń|���t�B�������[�h
-importScripts('/serviceworker-cache-polyfill.js');
+//chrome 41 では cache.add, cache.addAll がまだ存在していないのでライブラリを使う
+importScripts('/Scripts/serviceworker-cache-polyfill.js');
 
-// �L���b�V���̃L�[�ƂȂ镶����
-var CACHE_KEY = 'service-worker-playground-v1';
+//キャッシュ名。ファイルのバージョンが変更になった場合ここを変えることで制御する。
+var CACHE_NAME = 'json-cache-v00009';
 
-self.addEventListener('install', function (event) {
+console.log(CACHE_NAME);
 
-  console.log('ServiceWorker.oninstall: ', event);
-
-  event.waitUntil(
-    caches.open(CACHE_KEY).then(function (cache) {
-
-      // cache�����������N�G�X�g�̃L�[��ǉ�
-      return cache.addAll([
-        '/',
+//キャッシュ対象のURL
+var cachedUrls = [
         '/Demo/Index',
-        '/data/column_domains.json',
-        '/data/olympic_medalists.json',
-        '/lib/angular.min.js',
-        '/lib/bootstrap.min.css',
-        '/lib/lovefield.min.js',
-        '/lib/ngStorage.min.js',
-        '/resources/chalk.png',
-        '/resources/demo.css',
-        '/resources/demo.js',
-        '/service-worker.js',
-      ]);
-    })
-  );
+];
+
+//インストールイベント発生時に呼ばれる。
+self.addEventListener('install', function (event) {
+    console.log('インストール成功！');
+    event.waitUntil(
+      caches.open(CACHE_NAME)
+        .then(function (cache) {
+            console.log('キャッシュ対象に加えます！');
+            console.log(cache);
+            try {
+                //この段階でサーバにリクエストを発行して事前にキャッシュを生成しています。
+                cache.addAll(cachedUrls);
+            } catch (e) {
+                console.log(e);
+            }
+            return cache;
+        })
+    );
 });
 
+//アクティベートイベント発生時に呼ばれる。
+self.addEventListener('activate', function (event) {
+    console.log("アクティベート！");
+    //キャッシュ対象変更時、古いヴァージョンのキャッシュを削除する。
+    var cacheWhitelist = [CACHE_NAME];
+    event.waitUntil(
+      caches.keys().then(function (cacheNames) {
+          return Promise.all(
+            cacheNames.map(function (cacheName) {
+                if (cacheWhitelist.indexOf(cacheName) === -1) {
+                    console.log("キャッシュ削除");
+                    console.log(cacheName);
+                    //キャッシュ削除。
+                    return caches.delete(cacheName);
+                }
+            })
+          );
+      })
+    );
+});
+
+//フェッチイベント発生時に呼ばれる。
 self.addEventListener('fetch', function (event) {
 
-  console.log('ServiceWorker.onfetch: ', event);
+    console.log('リクエストをフェッチしました。');
+    //console.log( event.request.url ) ;
+    event.respondWith(
+      caches.match(event.request)
+        .then(function (response) {
+            console.log('キャッシュの検証をします。。');
+            if (response) {
+                console.log('キャッシュがあったのでレスポンスはキャッシュから返す！');
+                console.log(response);
+                return response;
+            }
 
-  event.respondWith(
-    fetch(event.request).catch(function () {
-        return caches.match(event.request);
-    })
-  );
-});
+            var fetchRequest = event.request.clone();
 
-self.addEventListener('activate', function (event) {
-    console.log('ServiceWorker.onactivate: ', event);
+            return fetch(fetchRequest, { mode: 'no-cors' })
+              .then(function (response) {
+                  console.log("フェッチリクエストで、レスポンスの精査をします");
+                  // レスポンスが正しいかをチェック
+                  if (!response || response.status !== 200 || response.type !== 'basic') {
+                      return response;
+                  }
+
+                  // 重要：レスポンスを clone する。レスポンスは Stream で
+                  // ブラウザ用とキャッシュ用の2回必要。なので clone して
+                  // 2つの Stream があるようにする
+                  var responseToCache = response.clone();
+
+                  //あらゆる通信を根こそぎキャッシュしてみる。
+                  caches.open(CACHE_NAME)
+                    .then(function (cache) {
+                        console.log('event.request をキャッシュに入れます。 ');
+                        console.log(event.request);
+                        //キャッシュします。次回からはリクエストされても通信せずにキャッシュから呼ばれます。
+                        cache.put(event.request, responseToCache);
+                    });
+
+                  return response;
+              });
+
+        })
+    );
 });

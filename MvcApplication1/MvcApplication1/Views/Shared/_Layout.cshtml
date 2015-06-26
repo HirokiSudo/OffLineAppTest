@@ -9,11 +9,11 @@
     <script type="text/javascript">
         // navigator.serviceWorkerがある場合
         if (navigator.serviceWorker) {
-            navigator.serviceWorker.getRegistration('/').then(function (reg) {
+            navigator.serviceWorker.getRegistration('/Demo').then(function (reg) {
                 if (!reg) {
                     // service-worker.jsをService Workerとして登録する
                     navigator.serviceWorker.register('/service-worker.js', {
-                        scope: '/'
+                        scope: '/Demo'
                     }).then(function onFulfilled() {
 
                         // service-worker.jsがひと通り評価され、インストールが成功した場合
@@ -28,15 +28,15 @@
         }
     </script>
 
-    @Styles.Render("~/assets/css/bootstrap.css")
-    @Styles.Render("~/assets/css/jquery-ui.css")
+    @Styles.Render("~/Styles/bootstrap.min.css")
+    @Styles.Render("~/Styles/demo.css")
 
-    @Scripts.Render("~/lib/angular.min.js")
-    @Scripts.Render("~/lib/ngStorage.min.js")
-    @Scripts.Render("~/lib/lovefield.min.js")
 
-    @Scripts.Render("~/resources/demo.js")
-    @Styles.Render("~/resources/demo.css")
+    @Scripts.Render("~/Scripts/angular.min.js")
+    @Scripts.Render("~/Scripts/ngStorage.min.js")
+    @Scripts.Render("~/Scripts/lovefield.min.js")
+
+    @Scripts.Render("~/Scripts/demo.js")
 </head>
 <body ng-app="myApp">
     @RenderBody()
