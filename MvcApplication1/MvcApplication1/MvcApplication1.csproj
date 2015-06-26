@@ -376,7 +376,6 @@
     <Content Include="assets\js\x-editable\bootstrap-editable.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="example.appcache" />
     <Content Include="assets\css\less\ace-features.less" />
     <Content Include="assets\css\less\ace-nav.less" />
     <Content Include="assets\css\less\ace-responsive.less" />
