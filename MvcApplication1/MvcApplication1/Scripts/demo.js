@@ -424,7 +424,7 @@ ResultsController.prototype.getColumnNames = function() {
  * Destroy the cache.
  */
 QueryBuilderController.prototype.destroy = function () {
-    navigator.serviceWorker.getRegistration('/Demo').then(function (reg) {
+    navigator.serviceWorker.getRegistration('/').then(function (reg) {
         if (reg) {
             //登録されている Service Worker があれば削除します。
             reg.unregister();

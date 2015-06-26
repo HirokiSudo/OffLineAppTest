@@ -2,7 +2,7 @@
 importScripts('/Scripts/serviceworker-cache-polyfill.js');
 
 //キャッシュ名。ファイルのバージョンが変更になった場合ここを変えることで制御する。
-var CACHE_NAME = 'json-cache-v00009';
+var CACHE_NAME = 'json-cache-v00010';
 
 console.log(CACHE_NAME);
 

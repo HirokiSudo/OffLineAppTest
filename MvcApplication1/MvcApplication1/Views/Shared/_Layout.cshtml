@@ -9,11 +9,11 @@
     <script type="text/javascript">
         // navigator.serviceWorkerがある場合
         if (navigator.serviceWorker) {
-            navigator.serviceWorker.getRegistration('/Demo').then(function (reg) {
+            navigator.serviceWorker.getRegistration('/').then(function (reg) {
                 if (!reg) {
                     // service-worker.jsをService Workerとして登録する
                     navigator.serviceWorker.register('/service-worker.js', {
-                        scope: '/Demo'
+                        scope: '/'
                     }).then(function onFulfilled() {
 
                         // service-worker.jsがひと通り評価され、インストールが成功した場合
