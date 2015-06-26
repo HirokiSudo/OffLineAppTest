@@ -1,7 +1,7 @@
-﻿using System;
+﻿using MvcApplication1.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace MvcApplication1.Controllers
@@ -11,28 +11,98 @@ namespace MvcApplication1.Controllers
         // GET: /Data/OlympicMedalists
         public ActionResult OlympicMedalists()
         {
-            List<OlympicMedalist> resultList = new List<OlympicMedalist>() {
-                new OlympicMedalist() { city = "Anders", year = "1896", sport = "Aquatics", discipline = "Swimming", country = "HUN", gender = "Men", @event = "100m freestyle", eventGender = "M", color = "Gold", lastName = "Hajos", firstName = "Alfred" }, 
-            };
+            var ent = new OffLineAppTestEntities();
+            var dbResultSet = ent.OlympicMedalists.Where(x => x.city == "Tokyo");
+
+            var resultList = new List<OlympicMedalist>();
+
+            foreach (var result in dbResultSet)
+            {
+                var olympicMedalist = new OlympicMedalist()
+                {
+                    city = result.city,
+                    year = result.year,
+                    sport = result.sport,
+                    discipline = result.discipline,
+                    country = result.country,
+                    gender = result.gender,
+                    @event = result.@event,
+                    eventGender = result.eventGender,
+                    color = result.color,
+                    lastName = result.lastName,
+                    firstName = result.firstName
+                };
+                resultList.Add(olympicMedalist);
+            }
+
             return this.Json(resultList, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: /Data/OlympicMedalists
+        // GET: /Data/ColumnDomains
         public ActionResult ColumnDomains()
+        
         {
-            object result = new {
-                cities = new List<string>() {"Anders"},
-                years = new List<string>() {"1896"},
-                countries = new List<string>() {"HUN"},
-                disciplines = new List<string>() {"Swimming"},
-                events = new List<string>() {"100m freestyle"},
-                sports = new List<string>() {"Aquatics"},
-                genders = new List<string>() {"Men"},
-                eventGenders = new List<string>() {"M"},
-                colors = new List<string>() {"Gold"},
-            };
+            var ent = new OffLineAppTestEntities();
+            var dbResultSet = ent.ColumnDomains;
+
+            var cityList = new List<string>();
+            var yearList = new List<string>();
+            var sportList = new List<string>();
+            var disciplineList = new List<string>();
+            var countryList = new List<string>();
+            var genderList = new List<string>();
+            var eventList = new List<string>();
+            var eventGenderList = new List<string>();
+            var colorList = new List<string>();
+
+            foreach (var result in dbResultSet)
+            {
+                switch (result.group)
+                {
+                    case "cities":
+                        cityList.Add(result.value);
+                        break;
+                    case "years":
+                        yearList.Add(result.value);
+                        break;
+                    case "countries":
+                        countryList.Add(result.value);
+                        break;
+                    case "disciplines":
+                        disciplineList.Add(result.value);
+                        break;
+                    case "events":
+                        eventList.Add(result.value);
+                        break;
+                    case "sports":
+                        sportList.Add(result.value);
+                        break;
+                    case "genders":
+                        genderList.Add(result.value);
+                        break;
+                    case "eventGenders":
+                        eventGenderList.Add(result.value);
+                        break;
+                    case "colors":
+                        colorList.Add(result.value);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
             
-            return this.Json(result, JsonRequestBehavior.AllowGet);
+            return this.Json(new {
+                cities = cityList,
+                years = yearList,
+                countries = countryList,
+                disciplines = disciplineList,
+                events = eventList,
+                sports = sportList,
+                genders = genderList,
+                eventGenders = eventGenderList,
+                colors = colorList,
+            }, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -42,7 +112,7 @@ namespace MvcApplication1.Controllers
     public class OlympicMedalist
     {
         public string city { get; set; }
-        public string year { get; set; }
+        public Nullable<int> year { get; set; }
         public string sport { get; set; }
         public string discipline { get; set; }
         public string country { get; set; }
