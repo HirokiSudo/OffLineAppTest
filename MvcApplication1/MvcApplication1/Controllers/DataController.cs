@@ -14,28 +14,7 @@ namespace MvcApplication1.Controllers
             var ent = new OffLineAppTestEntities();
             var dbResultSet = ent.OlympicMedalists.Where(x => x.city == "Tokyo");
 
-            var resultList = new List<OlympicMedalist>();
-
-            foreach (var result in dbResultSet)
-            {
-                var olympicMedalist = new OlympicMedalist()
-                {
-                    city = result.city,
-                    year = result.year,
-                    sport = result.sport,
-                    discipline = result.discipline,
-                    country = result.country,
-                    gender = result.gender,
-                    @event = result.@event,
-                    eventGender = result.eventGender,
-                    color = result.color,
-                    lastName = result.lastName,
-                    firstName = result.firstName
-                };
-                resultList.Add(olympicMedalist);
-            }
-
-            return this.Json(resultList, JsonRequestBehavior.AllowGet);
+            return this.Json(dbResultSet, JsonRequestBehavior.AllowGet);
         }
 
         // GET: /Data/ColumnDomains
@@ -105,22 +84,6 @@ namespace MvcApplication1.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-
-
     }
 
-    public class OlympicMedalist
-    {
-        public string city { get; set; }
-        public Nullable<int> year { get; set; }
-        public string sport { get; set; }
-        public string discipline { get; set; }
-        public string country { get; set; }
-        public string gender { get; set; }
-        public string @event { get; set; }
-        public string eventGender { get; set; }
-        public string color { get; set; }
-        public string lastName { get; set; }
-        public string firstName { get; set; }
-    }
 }
