@@ -11,7 +11,7 @@ namespace MvcApplication1.Controllers
     public class OlympicMedalistsController : ApiController
     {
         // GET: /api/OlympicMedalists/
-        public List<OlympicMedalist> Get()
+        public IEnumerable<OlympicMedalist> Get()
         {
 
             var ent = new OffLineAppTestEntities();

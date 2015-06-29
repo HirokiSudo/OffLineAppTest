@@ -11,7 +11,7 @@ namespace MvcApplication1.Controllers
     public class ColumnDomainsController : ApiController
     {
         // GET: /api/ColumnDomains/
-        public Dictionary<string, List<string>> Get()
+        public IEnumerable<KeyValuePair<string, List<string>>> Get()
         {
             var ent = new OffLineAppTestEntities();
             var dbResultSet = ent.ColumnDomains;

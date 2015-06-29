@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OffLineAppTestModelStoreContainer" CdmEntityContainer="OffLineAppTestEntities">
+    <EntitySetMapping Name="ColumnDomains">
+      <EntityTypeMapping TypeName="OffLineAppTestModel.ColumnDomains">
+        <MappingFragment StoreEntitySet="ColumnDomains">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="group" ColumnName="group" />
+          <ScalarProperty Name="value" ColumnName="value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OlympicMedalists">
+      <EntityTypeMapping TypeName="OffLineAppTestModel.OlympicMedalists">
+        <MappingFragment StoreEntitySet="OlympicMedalists">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="sport" ColumnName="sport" />
+          <ScalarProperty Name="discipline" ColumnName="discipline" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="event" ColumnName="event" />
+          <ScalarProperty Name="eventGender" ColumnName="eventGender" />
+          <ScalarProperty Name="color" ColumnName="color" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
