@@ -15,7 +15,7 @@ namespace MvcApplication1.Controllers
         {
 
             var ent = new OffLineAppTestEntities();
-            var dbResultSet = ent.OlympicMedalists;
+            var dbResultSet = ent.OlympicMedalists.OrderBy(t => t.ID);
 
             var resultList = new List<OlympicMedalist>();
 

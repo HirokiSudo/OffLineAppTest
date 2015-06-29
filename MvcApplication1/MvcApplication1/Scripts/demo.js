@@ -82,8 +82,10 @@ DbService.prototype.buildSchema_ = function() {
       addColumn('lastName', lf.Type.STRING).
       addColumn('sport', lf.Type.STRING).
       addColumn('year', lf.Type.NUMBER).
-      addIndex('idx_year', ['year']).
-      addIndex('idx_lastName', ['lastName']);
+      //addIndex('idx_year', ['year']).
+      //addIndex('idx_lastName', ['lastName']);
+      addIndex('idx_city', ['city']).
+      addIndex('idx_discipline', ['discipline']);
   return schemaBuilder;
 };
 
@@ -420,11 +422,13 @@ ResultsController.prototype.getColumnNames = function() {
   return this.resultsService_.getColumnNames();
 };
 
+var swSCOPE = '/';
+
 /**
  * Destroy the cache.
  */
 QueryBuilderController.prototype.destroy = function () {
-    navigator.serviceWorker.getRegistration('/').then(function (reg) {
+    navigator.serviceWorker.getRegistration(swSCOPE).then(function (reg) {
         if (reg) {
             //登録されている Service Worker があれば削除します。
             reg.unregister();
@@ -448,5 +452,22 @@ function main() {
       'QueryBuilderController',
       ['$scope', '$http', 'DbService', 'ResultsService', '$localStorage',
         QueryBuilderController]);
+
+  // navigator.serviceWorkerがある場合
+  if (navigator.serviceWorker) {
+    // service-worker.jsをService Workerとして登録する
+    navigator.serviceWorker.register('/service-worker.js', {
+        scope: swSCOPE
+    }).then(function onFulfilled() {
+
+        // service-worker.jsがひと通り評価され、インストールが成功した場合
+        console.log('Service Worker was installed.');
+    }, function onRejected() {
+
+        // service-worker.jsのインストールが失敗した場合
+        console.log('Service Worker was not installed.');
+    });
+  }
+
 }
 main();

@@ -14,7 +14,7 @@ namespace MvcApplication1.Controllers
         public IEnumerable<KeyValuePair<string, List<string>>> Get()
         {
             var ent = new OffLineAppTestEntities();
-            var dbResultSet = ent.ColumnDomains;
+            var dbResultSet = ent.ColumnDomains.OrderBy(t => t.ID);
 
             var cityList = new List<string>();
             var yearList = new List<string>();
