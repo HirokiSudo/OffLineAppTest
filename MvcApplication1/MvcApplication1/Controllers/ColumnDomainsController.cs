@@ -28,34 +28,35 @@ namespace MvcApplication1.Controllers
 
             foreach (var result in dbResultSet)
             {
+                var value = result.value ?? "";
                 switch (result.group)
                 {
                     case "cities":
-                        cityList.Add(result.value);
+                        cityList.Add(value);
                         break;
                     case "years":
-                        yearList.Add(result.value);
+                        yearList.Add(value);
                         break;
                     case "countries":
-                        countryList.Add(result.value);
+                        countryList.Add(value);
                         break;
                     case "disciplines":
-                        disciplineList.Add(result.value);
+                        disciplineList.Add(value);
                         break;
                     case "events":
-                        eventList.Add(result.value);
+                        eventList.Add(value);
                         break;
                     case "sports":
-                        sportList.Add(result.value);
+                        sportList.Add(value);
                         break;
                     case "genders":
-                        genderList.Add(result.value);
+                        genderList.Add(value);
                         break;
                     case "eventGenders":
-                        eventGenderList.Add(result.value);
+                        eventGenderList.Add(value);
                         break;
                     case "colors":
-                        colorList.Add(result.value);
+                        colorList.Add(value);
                         break;
                     default:
                         break;
