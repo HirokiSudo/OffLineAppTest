@@ -77,6 +77,5 @@ C:\workspaces\VisualStudio\OffLineAppTest\MvcApplication1\MvcApplication1\bin\ja
 C:\workspaces\VisualStudio\OffLineAppTest\MvcApplication1\MvcApplication1\bin\ja\System.Web.WebPages.Razor.resources.dll
 C:\workspaces\VisualStudio\OffLineAppTest\MvcApplication1\MvcApplication1\bin\ja\System.Web.Optimization.resources.dll
 C:\workspaces\VisualStudio\OffLineAppTest\MvcApplication1\MvcApplication1\bin\ja\System.Web.Providers.resources.dll
-C:\workspaces\VisualStudio\OffLineAppTest\MvcApplication1\MvcApplication1\obj\Debug\MvcApplication1.csprojResolveAssemblyReference.cache
 C:\workspaces\VisualStudio\OffLineAppTest\MvcApplication1\MvcApplication1\obj\Debug\MvcApplication1.dll
 C:\workspaces\VisualStudio\OffLineAppTest\MvcApplication1\MvcApplication1\obj\Debug\MvcApplication1.pdb
